@@ -1,0 +1,85 @@
+<router-outlet></router-outlet>
+<div class="col-4 mx-auto mt-4">
+  <div class="card">
+    <div [formGroup]="toDoForm">
+
+      <div class="form-row p-4">
+        <div class="col-md-12 mb-3">
+          <label for="validationServer01">Title</label>
+          <input type="text"
+            [ngClass]="(submitted && (toDoForm.controls['title'].errors)) ? 'form-control is-invalid':'form-control'"
+            formControlName="title">
+          <div [ngClass]="{'invalid-feedback':(submitted && toDoForm.controls['title'].errors)}">
+            <p
+              *ngIf="submitted && toDoForm.controls['title'].errors?.['minlength']||toDoForm.controls['title']?.errors?.['maxlength']">
+              Title should be minimum of 3 and max of 100
+            </p>
+            <p *ngIf="submitted && toDoForm.controls['title'].errors?.['required']">
+              Title is required
+            </p>
+          </div>
+        </div>
+        <div class="col-md-12 mb-3">
+          <label for="validationServer02">Discription</label>
+          <input type="text"
+            [ngClass]="(submitted && (toDoForm.controls['discription'].errors)) ? 'form-control is-invalid':'form-control'"
+            formControlName="discription">
+          <div [ngClass]="{'invalid-feedback':(submitted && toDoForm.controls['discription'].errors)}">
+            <p
+              *ngIf=" submitted && toDoForm.controls['discription'].errors?.['minlength']||toDoForm.controls['discription']?.errors?.['maxlength']">
+              Discription should be minimum of 3 and max of 100
+            </p>
+            <p *ngIf="submitted && toDoForm.controls['discription'].errors?.['required']">
+              Discription is required
+            </p>
+          </div>
+        </div>
+
+        <!-- <label>Title</label><br />
+    <input type="text" formControlName="title">
+    <p
+      *ngIf="submitted && (toDoForm.controls['title'].errors?.['minlength']||toDoForm.controls['title']?.errors?.['maxlength'])">
+      Title should be minimum of 3 and max of 100
+    </p><br />
+    <label>Discription</label><br />
+    <input type="text" formControlName="discription">
+    <p
+      *ngIf="submitted && (toDoForm.controls['discription'].errors?.['minlength']||toDoForm.controls['discription']?.errors?.['maxlength'])">
+      Discription should be minimum of 3 and max of 100
+    </p>
+  </div> -->
+        <div class="text-center">
+          <button class=" btn btn-primary" (click)="taskActive?update():add()">{{taskActive?'Update':'Add'}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-6 mx-auto mt-5">
+  <div class="list-group ">
+    <button type="button" *ngFor="let item of list"
+      [ngClass]="isActive?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'">
+      <div class="d-flex justify-content-between">
+        <div>
+          <h1>
+            {{item.title}}
+
+          </h1>
+
+          <span>
+            {{item.description}}
+          </span>
+        </div>
+        <div class="my-auto">
+          <i class="fa-regular fa-pen-to-square pe-2" (click)="edit(item)"></i>
+          <i class="fa-regular fa-trash-can" (click)="delete(item.id)"></i>
+        </div>
+      </div>
+    </button>
+  </div>
+</div>
+<!-- <ul>
+      <li *ngFor="let item of shoppingItem$ | async">
+        {{item.name}}
+      </li>
+      </ul> -->
